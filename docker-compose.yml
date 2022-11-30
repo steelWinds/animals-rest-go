@@ -1,0 +1,27 @@
+services:
+  app:
+    image: golang:alpine
+    ports:
+      - "8080:3000"
+    command: sh -c "go run ."
+    working_dir: /animals_app/app
+    volumes:
+      - ./:/animals_app
+    networks:
+      - backend
+    container_name: go-animals
+    hostname: animals-rest
+  postgres:
+    container_name: postgres_db
+    image: postgres:alpine
+    env_file: /postgres.env
+    volumes: 
+      - ./:/animals_db
+    ports:
+      - "3001:5432"
+    networks: 
+     - backend
+
+networks:
+  backend:
+    driver: bridge
