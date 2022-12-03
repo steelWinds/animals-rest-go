@@ -8,6 +8,6 @@ type AnimalUnit struct {
 	Name     string `json:"name"`
 	Age      int    `json:"age"`
 	Type     string `json:"type"`
-	OwnerUnits []OwnerUnit `gorm:"many2many:own_maps;association_jointable_foreignkey:owner_unit_id;save_association:false"`
+	OwnerUnits []OwnerUnit `json:"ownerUnits" gorm:"many2many:own_maps;association_jointable_foreignkey:owner_unit_id;save_association:false"`
 	models.Gorm
 }
