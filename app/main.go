@@ -13,11 +13,7 @@ import (
 func main() {
 	router := gin.Default()
 
-	err := database.ConnectDB("user", "secret", "animals", "disable", 3001)
-
-	if (err != nil) {
-		panic(err)
-	}
+	database.ConnectDB("animals", "disable")
 
 	v1 := router.Group("/api/v1")
 	{

@@ -2,45 +2,34 @@ package database
 
 import (
 	"fmt"
-	"os"
-	"time"
-
 	"log"
+	"os"
 
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
-	"gorm.io/gorm/logger"
 
 	_ "github.com/lib/pq"
 )
 
 var DB *gorm.DB
 
-func ConnectDB(user, password, dbname, sslmode string, port int) error {
-	newLogger := logger.New(
-		log.New(os.Stdout, "\r\n", log.LstdFlags), // io writer
-		logger.Config{
-			SlowThreshold:              time.Second,   // Slow SQL threshold
-			LogLevel:                   logger.Silent, // Log level
-			IgnoreRecordNotFoundError: true,           // Ignore ErrRecordNotFound error for logger
-			Colorful:                  false,          // Disable color
-		},
-	)
+func ConnectDB(dbname, sslmode string) {
+	var DB_USER = os.Getenv("POSTGRES_USER")
+	var DB_PASS = os.Getenv("POSTGRES_PASSWORD")
+
+	var DB_HOST = os.Getenv("DB_HOST")
+	var DB_PORT = os.Getenv("DB_PORT")
 	
 	dsn := fmt.Sprintf(
-		"user=%v password=%v dbname=%v sslmode=%v host=postgres_db",
-		user, password, dbname, sslmode,
+		"user=%v password=%v dbname=%v sslmode=%v host=%v port=%v",
+		DB_USER, DB_PASS, dbname, sslmode, DB_HOST, DB_PORT,
 	)
 	
-	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{
-		Logger: newLogger,
-	})
+	db, err := gorm.Open(postgres.Open(dsn), new(gorm.Config))
 
 	if err != nil {
-		return err
+		log.Fatal(err.Error())
 	}
 
 	DB = db
-
-	return nil
 }

@@ -2,6 +2,7 @@ services:
   app:
     image: cosmtrek/air
     container_name: go-animals
+    env_file: ./postgres.env
     working_dir: /app
     volumes:
       - ./:/app
@@ -11,8 +12,8 @@ services:
     ports:
       - "8080:3000"
   postgres:
-    container_name: postgres_db
     image: postgres:alpine
+    container_name: postgres_db
     env_file: ./postgres.env
     volumes:
       - ./:/animals_app/db
