@@ -23,7 +23,7 @@ func PostH[T any](orm *gorm.DB) func (*gin.Context) {
 			return
 		}
 
-		c.IndentedJSON(http.StatusOK, &typedObj)
+		c.IndentedJSON(http.StatusCreated, &typedObj)
 	}
 
 	return handler

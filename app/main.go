@@ -16,14 +16,19 @@ func main() {
 		panic(err)
 	}
 
-	items := make([]db.OwnerUnit, 2)
+	v1 := router.Group("/api/v1")
+	{
+		v1.GET("/animals", handlers.GetH[db.AnimalUnit](orm, "OwnerUnits"))
+		v1.POST("/animals", handlers.PostH[db.AnimalUnit](orm))
 
-	orm.Model(new(db.OwnerUnit)).Preload("AnimalUnits").Find(&items)
+		v1.GET("/animals/:id", handlers.GetByIdH[db.AnimalUnit](orm, "OwnerUnits"))
 
-	router.GET("/animals", handlers.GetH[db.AnimalUnit](orm))
-	router.POST("/animals", handlers.PostH[db.AnimalUnit](orm))
+		v1.GET("/owners", handlers.GetH[db.OwnerUnit](orm, "AnimalUnits"))
+		v1.POST("/owners", handlers.PostH[db.OwnerUnit](orm))
 
-	router.GET("/owners", handlers.GetH[db.OwnerUnit](orm, "AnimalUnits"))
+		v1.POST("/owners/:id", handlers.PostAnimlsByIdH(orm))
+		v1.GET("/owners/:id", handlers.GetByIdH[db.OwnerUnit](orm, "AnimalUnits"))
+	}
 
 	router.Run(":3000")
 }
