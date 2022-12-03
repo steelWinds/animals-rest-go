@@ -21,13 +21,13 @@ type AnimalUnit struct {
 	Name     string `json:"name"`
 	Age      int    `json:"age"`
 	Type     string `json:"type"`
-	OwnerUnits []OwnerUnit `gorm:"many2many:own_maps;association_jointable_foreignkey:owner_unit_id;save_association:false"`
+	OwnerUnits []*OwnerUnit `gorm:"many2many:own_maps;association_jointable_foreignkey:owner_unit_id"`
 	Gorm
 }
 
 type OwnerUnit struct {
 	Name    string `json:"name"`
-	AnimalUnits []AnimalUnit `gorm:"many2many:own_maps;association_jointable_foreignkey:animal_unit_id;save_association:false"`
+	AnimalUnits []*AnimalUnit `gorm:"many2many:own_maps;association_jointable_foreignkey:animal_unit_id" json:"animalUnits"`
 	Gorm
 }
 
