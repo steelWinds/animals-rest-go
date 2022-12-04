@@ -2,7 +2,6 @@ package database
 
 import (
 	"fmt"
-	"log"
 	"os"
 
 	"gorm.io/driver/postgres"
@@ -13,7 +12,7 @@ import (
 
 var DB *gorm.DB
 
-func ConnectDB(dbname, sslmode string) {
+func ConnectDB(dbname, sslmode string) (db *gorm.DB, err error) {
 	var DB_USER = os.Getenv("POSTGRES_USER")
 	var DB_PASS = os.Getenv("POSTGRES_PASSWORD")
 
@@ -25,11 +24,13 @@ func ConnectDB(dbname, sslmode string) {
 		DB_USER, DB_PASS, dbname, sslmode, DB_HOST, DB_PORT,
 	)
 	
-	db, err := gorm.Open(postgres.Open(dsn), new(gorm.Config))
+	db, err = gorm.Open(postgres.Open(dsn), new(gorm.Config))
 
 	if err != nil {
-		log.Fatal(err.Error())
+		err = err
+
+		return
 	}
 
-	DB = db
+	return
 }

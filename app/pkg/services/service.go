@@ -4,8 +4,9 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"github.com/steelWinds/animals-rest-go/internal/database"
+	"github.com/steelWinds/animals-rest-go/internal/app/database"
 )
+
 
 func PostItem[T any](c *gin.Context) {
 	item := new(T)
