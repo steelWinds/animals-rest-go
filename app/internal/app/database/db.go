@@ -10,8 +10,6 @@ import (
 	_ "github.com/lib/pq"
 )
 
-var DB *gorm.DB
-
 func ConnectDB(dbname, sslmode string) (db *gorm.DB, err error) {
 	var DB_USER = os.Getenv("POSTGRES_USER")
 	var DB_PASS = os.Getenv("POSTGRES_PASSWORD")
@@ -27,8 +25,6 @@ func ConnectDB(dbname, sslmode string) (db *gorm.DB, err error) {
 	db, err = gorm.Open(postgres.Open(dsn), new(gorm.Config))
 
 	if err != nil {
-		err = err
-
 		return
 	}
 
