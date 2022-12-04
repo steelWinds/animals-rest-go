@@ -8,12 +8,12 @@ Simple REST-API with use Docker, PostgreSQL and Golang (GIN & Gorm)
 Yout should create ```postgres.evn``` file with next envs:
 
 ```
-    DB_HOST="postgres_db"
-    DB_PORT=5432
+    DB_HOST="xxx"
+    DB_PORT=0000
 
-    POSTGRES_PASSWORD="secret"
-    POSTGRES_USER="user"
-    POSTGRES_DB="animals"
+    POSTGRES_PASSWORD="xxx"
+    POSTGRES_USER="xxx"
+    POSTGRES_DB="xxx"
 ```
 
 ### Run docker compose
