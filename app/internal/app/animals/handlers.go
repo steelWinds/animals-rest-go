@@ -10,7 +10,7 @@ import (
 func RegisterHandlers(router *gin.RouterGroup, service *AnimalsSet) {
 	res := resource{service} 
 
-	router.GET("/animal/:id", res.get)
+	router.GET("/animals/:id", res.get)
 	router.GET("/animals", res.getAll)
 	
 	router.POST("/animals", res.post)

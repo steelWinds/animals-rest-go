@@ -10,10 +10,10 @@ import (
 func RegisterHandlers(router *gin.RouterGroup, service *OwnersSet) {
 	res := resource{service} 
 
-	router.GET("/owner/:id", res.get)
-	router.POST("/owner/:id", res.postAnimals)
+	router.GET("/owners/:id", res.get)
 	router.GET("/owners", res.getAll)
-	
+
+	router.POST("/owners/:id", res.postAnimals)
 	router.POST("/owners", res.post)
 }
 
@@ -56,12 +56,16 @@ func (res *resource) post(c *gin.Context) {
 
 	if err := c.BindJSON(&owner); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"message": err.Error()})
+
+		return
 	}
 
 	createdAnimal, err := res.CreateItem(owner)
 
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"message": err.Error()})
+
+		return
 	}
 
 	c.JSON(http.StatusCreated, &createdAnimal)
