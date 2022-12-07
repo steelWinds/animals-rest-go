@@ -20,11 +20,11 @@ type OwnerUnit struct {
 }
 
 type AnimalUnit struct {
-	Name     string `json:"name"`
-	Age      int    `json:"age"`
-	Type     string `json:"type"`
-	OwnerUnits []OwnerUnit `json:"ownerUnits" gorm:"many2many:own_maps;association_jointable_foreignkey:owner_unit_id;save_association:false"`
-	Gorm
+	Name     string `fake:"{firstname}" json:"name"`
+	Age      int    `fake:"{number:1,100}" json:"age"`
+	Type     string `fake:"{animaltype}" json:"type"`
+	OwnerUnits []OwnerUnit `fake:"skip" json:"ownerUnits" gorm:"many2many:own_maps;association_jointable_foreignkey:owner_unit_id;save_association:false"`
+	Gorm `fake:"skip"`
 }
 
 type OwnMap struct {

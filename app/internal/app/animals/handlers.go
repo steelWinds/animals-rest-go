@@ -14,6 +14,8 @@ func RegisterHandlers(router *gin.RouterGroup, service *AnimalsSet) {
 	router.GET("/animals", res.getAll)
 	
 	router.POST("/animals", res.post)
+
+	router.DELETE("/animals/:id", res.delete)
 }
 
 type resource struct {
@@ -40,6 +42,26 @@ func (res *resource) get(c *gin.Context) {
 	c.JSON(http.StatusOK, &animal)
 }
 
+func (res *resource) delete(c *gin.Context) {
+	var params models.IDParam
+
+	if err := c.ShouldBindUri(&params); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{ "message": err.Error() })
+
+		return
+	}
+
+	err := res.DeleteItem(params.ID)
+
+	if err != nil {
+		c.JSON(http.StatusNotFound, gin.H{ "message": err.Error() })
+
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"message": "succesfull"})
+}
+
 func (res *resource) getAll(c *gin.Context) {
 	animals, err := res.GetAllItems()
 
@@ -55,12 +77,16 @@ func (res *resource) post(c *gin.Context) {
 
 	if err := c.BindJSON(&animal); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"message": err.Error()})
+
+		return
 	}
 
 	createdAnimal, err := res.CreateItem(animal)
 
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"message": err.Error()})
+
+		return
 	}
 
 	c.JSON(http.StatusCreated, &createdAnimal)
