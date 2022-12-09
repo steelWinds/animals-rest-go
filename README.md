@@ -1,25 +1,26 @@
 # animals-rest-go
-Simple REST-API with use Docker, PostgreSQL and Golang (GIN & Gorm)
+Simple REST-API with use ***Docker, PostgreSQL and Golang (GIN & Gorm)*** and ***Test-containers*** for testing
 
 ## Getting Started
 
 ### Configuration
 
-Yout should create ```postgres.evn``` file with next envs:
+You should create env files by example from ***docker/env/.env.example*** file
+
+### Run make command
 
 ```
-    DB_HOST="xxx"
-    DB_PORT=0000
-
-    POSTGRES_PASSWORD="xxx"
-    POSTGRES_USER="xxx"
-    POSTGRES_DB="xxx"
+make run-dev-app
+```
+OR
+```
+make run-prod-app
 ```
 
-### Run docker compose
+### Run tests
 
 ```
-docker-compose up -d
+make run-tests
 ```
 
 ## Author

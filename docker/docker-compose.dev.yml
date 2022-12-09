@@ -1,0 +1,16 @@
+name: dev_app
+
+x-env-files: &env-files
+  env_file:
+    - ./env/.env
+    - ./env/.dev.env
+
+services:
+  app:
+    image: cosmtrek/air
+    working_dir: /home/app
+    volumes:
+      - ../app:/home/app
+    <<: *env-files
+  postgres:
+    <<: *env-files

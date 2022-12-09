@@ -2,11 +2,33 @@ version: "3"
 
 services:
   app:
-    volumes:
-      - ../:/app
+    container_name: go_app
+    networks:
+      - backend
+    depends_on:
+      postgres:
+        condition: service_healthy
+    ports:
+      - "8080:8080"
   postgres:
+    container_name: postgres_db
+    hostname: postgres_db
     image: postgres:alpine
+    volumes:
+      - app:/postgres/db
+    networks:
+      - backend
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+    ports:
+      - "5432:5432"
 
 networks:
   backend:
     driver: bridge
+
+volumes:
+  app:

@@ -1,25 +1,19 @@
+name: prod_app
+
+x-env-files: &env-files
+  env_file:
+    - ./env/.env
+    - ./env/.prod.env
+
 services:
   app:
-    image: golang:alpine
-    container_name: go_prod_app
-    working_dir: /app
-    env_file: ./env/.prod.env
-    networks:
-      - backend
-    hostname: go_prod_app
-    ports:
-      - "8080:3000"
-  postgres:
-    image: postgres:alpine
-    container_name: postgres_prod_db
-    env_file: ./env/.prod.env
+    build:
+      context: ./app
     volumes:
-      - ../:/app/db
-    networks:
-     - backend
-    ports:
-      - "5432:5432"
+      - app:/home/app
+    <<: *env-files
+  postgres:
+    <<: *env-files
 
-networks:
-  backend:
-    driver: bridge
+volumes:
+  app:
