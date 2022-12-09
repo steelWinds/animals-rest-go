@@ -1,71 +1,17 @@
-package services
+package tests
 
 import (
-	"database/sql"
 	"encoding/json"
 	"fmt"
 	"net/http"
-	"testing"
 
 	"github.com/brianvoe/gofakeit/v6"
-	"github.com/gin-gonic/gin"
-	"github.com/joho/godotenv"
 	_ "github.com/lib/pq"
-	"github.com/steelWinds/animals-rest-go/internal/app/animals"
-	"github.com/steelWinds/animals-rest-go/internal/app/database"
 	"github.com/steelWinds/animals-rest-go/internal/app/models"
-	"github.com/steelWinds/animals-rest-go/internal/cmd"
 	"github.com/steinfletcher/apitest"
 	jsonpath "github.com/steinfletcher/apitest-jsonpath"
-	"github.com/stretchr/testify/suite"
-	"gorm.io/gorm"
 	"gorm.io/gorm/clause"
 )
-
-type AppSuite struct {
-	suite.Suite
-	App *gin.Engine
-	DB *gorm.DB
-
-	Service *animals.AnimalsSet
-	CreatedItems []models.AnimalUnit
-}
-
-type Message = map[string]string
-
-func clearTables(suite *AppSuite) {
-	var tables []string
-	var err error
-
-	if tables, err = suite.DB.Migrator().GetTables(); err != nil {
-		suite.T().Fatal(err)
-	}
-
-	for _, table := range tables {
-		suite.DB.Migrator().DropTable(table)
-	}
-}
-
-func (suite *AppSuite) SetupSuite() {
-	var err error
-	var db *sql.DB
-
-	if err = godotenv.Load(); err != nil {
-		suite.T().Fatal(err)
-	}
-
-	suite.App, suite.DB = cmd.InitApp()
-	
-	if db, err = suite.DB.DB(); err != nil {
-		suite.T().Fatal(err)
-	}
-
-	if err = database.SetTestMigrations(db); err != nil {
-		suite.T().Fatal(err)
-	}
-
-	suite.Service = animals.NewService(suite.DB)
-}
 
 func (suite *AppSuite) TestPostItem() {
 	var item models.AnimalUnit
@@ -164,12 +110,4 @@ func (suite *AppSuite) TestDelete() {
 	Status(http.StatusOK).
 	Body(string(messageJSON)).
 	End()
-}
-
-func TestSuite(t *testing.T) {
-	suiteApp := new(AppSuite)
-
-	defer clearTables(suiteApp)
-
-	suite.Run(t, suiteApp)
 }

@@ -1,7 +1,6 @@
 package database
 
 import (
-	"database/sql"
 	"fmt"
 	"os"
 
@@ -9,7 +8,6 @@ import (
 	"gorm.io/gorm"
 
 	_ "github.com/lib/pq"
-	"github.com/tanimutomo/sqlfile"
 )
 
 func ConnectDB() (db *gorm.DB, err error) {	
@@ -32,18 +30,6 @@ func ConnectDB() (db *gorm.DB, err error) {
 	if err != nil {
 		return
 	}
-
-	return
-}
-
-func SetTestMigrations(db *sql.DB) (err error) {
-	sqlExec := sqlfile.New()
-
-	if err = sqlExec.File("../configurate.sql"); err != nil {
-		return
-	}
-
-	sqlExec.Exec(db)
 
 	return
 }

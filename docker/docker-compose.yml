@@ -1,0 +1,12 @@
+version: "3"
+
+services:
+  app:
+    volumes:
+      - ../:/app
+  postgres:
+    image: postgres:alpine
+
+networks:
+  backend:
+    driver: bridge

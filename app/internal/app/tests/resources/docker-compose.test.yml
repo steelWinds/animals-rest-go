@@ -1,0 +1,13 @@
+services:
+  postgres:
+    image: postgres:alpine
+    container_name: postgres_dev_db
+    env_file: ./.test.env
+    networks:
+     - backend_test
+    ports:
+      - "5432:5432"
+
+networks:
+  backend_test:
+    driver: bridge
