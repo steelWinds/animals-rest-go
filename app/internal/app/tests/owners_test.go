@@ -13,6 +13,41 @@ import (
 	"gorm.io/gorm/clause"
 )
 
+func (suite *AppSuite) TestPostAnimalsToOwnerItem() {
+	var createdAnimal models.AnimalUnit
+	var animals []models.AnimalUnit
+	var createdOwner models.OwnerUnit
+	var err error
+
+	gofakeit.Struct(&createdOwner)
+	gofakeit.Struct(&createdAnimal)
+
+	if createdOwner, err = suite.OwnersService.CreateItem(createdOwner); err != nil {
+		suite.T().Error(err)
+	}
+
+	if createdAnimal, err = suite.AnimalsService.CreateItem(createdAnimal); err != nil {
+		suite.T().Error(err)
+	}
+
+	if animals, err = suite.AnimalsService.GetAllItems(); err != nil {
+		suite.T().Error(err)
+	}
+
+	reqStr := fmt.Sprintf("/api/v1/owners/%d", createdOwner.ID)
+
+	apitest.New().Debug().
+	HandlerFunc(suite.App.ServeHTTP).
+	Post(reqStr).
+	JSON(animals).
+	Expect(suite.T()).
+	Status(http.StatusCreated).
+	Assert(
+		jsonpath.Contains("$.animalUnits[:].id", float64(createdAnimal.ID)),
+	).
+	End()
+}
+
 func (suite *AppSuite) TestPostOwnerItem() {
 	var item models.AnimalUnit
 
