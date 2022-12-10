@@ -8,13 +8,15 @@ import (
 )
 
 func RegisterHandlers(router *gin.RouterGroup, service *OwnersSet) {
-	res := resource{service} 
+	res := resource{service}
 
 	router.GET("/owners/:id", res.get)
 	router.GET("/owners", res.getAll)
 
 	router.POST("/owners/:id", res.postAnimals)
 	router.POST("/owners", res.post)
+
+	router.DELETE("/owners/:id", res.delete)
 }
 
 type resource struct {
@@ -46,7 +48,7 @@ func (res *resource) getAll(c *gin.Context) {
 
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, err.Error())
-	} 
+	}
 
 	c.JSON(http.StatusOK, &animals)
 }
@@ -69,6 +71,26 @@ func (res *resource) post(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusCreated, &createdAnimal)
+}
+
+func (res *resource) delete(c *gin.Context) {
+	var params models.IDParam
+
+	if err := c.ShouldBindUri(&params); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{ "message": err.Error() })
+
+		return
+	}
+
+	err := res.DeleteItem(params.ID)
+
+	if err != nil {
+		c.JSON(http.StatusNotFound, gin.H{ "message": err.Error() })
+
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"message": "succesfull"})
 }
 
 func (res *resource) postAnimals(c *gin.Context) {

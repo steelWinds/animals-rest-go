@@ -14,9 +14,9 @@ type Gorm struct {
 }
 
 type OwnerUnit struct {
-	Name    string `json:"name"`
-	AnimalUnits []AnimalUnit `json:"animalUnits" gorm:"many2many:own_maps;association_jointable_foreignkey:animal_unit_id;save_association:false"`
-	Gorm
+	Name    string `fake:"{firstname}" json:"name"`
+	AnimalUnits []AnimalUnit `fake:"skip" json:"animalUnits" gorm:"many2many:own_maps;association_jointable_foreignkey:animal_unit_id;save_association:false"`
+	Gorm `fake:"skip"`
 }
 
 type AnimalUnit struct {

@@ -13,9 +13,9 @@ import (
 	"gorm.io/gorm/clause"
 )
 
-func (suite *AppSuite) TestPostItem() {
+func (suite *AppSuite) TestPostAnimalItem() {
 	var item models.AnimalUnit
-	
+
 	gofakeit.Struct(&item)
 
 	result := apitest.New().
@@ -35,18 +35,16 @@ func (suite *AppSuite) TestPostItem() {
 	End()
 
 	result.JSON(&item)
-
-	suite.CreatedItems = append(suite.CreatedItems, item)
 }
 
-func (suite *AppSuite) TestGetItemById() {
+func (suite *AppSuite) TestGetAnimalItemById() {
 	var item models.AnimalUnit
-	var createdItem models.AnimalUnit 
+	var createdItem models.AnimalUnit
 	var err error
-	
+
 	gofakeit.Struct(&item)
 
-	if createdItem, err = suite.Service.CreateItem(item); err != nil {
+	if createdItem, err = suite.AnimalsService.CreateItem(item); err != nil {
 		suite.T().Error(err)
 	}
 
@@ -67,11 +65,9 @@ func (suite *AppSuite) TestGetItemById() {
 		End(),
 	).
 	End()
-
-	suite.CreatedItems = append(suite.CreatedItems, createdItem)
 }
 
-func (suite *AppSuite) TestGetAllItems() {
+func (suite *AppSuite) TestGetAnimalsAllItems() {
 	var list []models.AnimalUnit
 
 	suite.DB.Preload(clause.Associations).Find(&list)
@@ -85,15 +81,15 @@ func (suite *AppSuite) TestGetAllItems() {
 	End()
 }
 
-func (suite *AppSuite) TestDelete() {
+func (suite *AppSuite) TestAnimalDelete() {
 	var item models.AnimalUnit
 	var createdItem models.AnimalUnit
 	var err error
 	var messageJSON []byte
-	
+
 	gofakeit.Struct(&item)
 
-	if createdItem, err = suite.Service.CreateItem(item); err != nil {
+	if createdItem, err = suite.AnimalsService.CreateItem(item); err != nil {
 		suite.T().Error(err)
 	}
 

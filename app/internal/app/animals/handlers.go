@@ -8,11 +8,11 @@ import (
 )
 
 func RegisterHandlers(router *gin.RouterGroup, service *AnimalsSet) {
-	res := resource{service} 
+	res := resource{service}
 
 	router.GET("/animals/:id", res.get)
 	router.GET("/animals", res.getAll)
-	
+
 	router.POST("/animals", res.post)
 
 	router.DELETE("/animals/:id", res.delete)
@@ -67,7 +67,7 @@ func (res *resource) getAll(c *gin.Context) {
 
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, err.Error())
-	} 
+	}
 
 	c.JSON(http.StatusOK, &animals)
 }

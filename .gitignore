@@ -16,5 +16,5 @@
 
 # Additionals
 
-/tmp
+**/tmp
 *.env

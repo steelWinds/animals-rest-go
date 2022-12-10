@@ -1,0 +1,10 @@
+CREATE TABLE animal_units(
+    "id" SERIAL,
+	  "name" TEXT NULL DEFAULT NULL,
+	  "age" SMALLINT NULL DEFAULT NULL,
+	  "type" TEXT NULL DEFAULT NULL,
+	  "created_at" TIMESTAMP NULL DEFAULT NULL,
+	  "updated_at" TIMESTAMP NULL DEFAULT NULL,
+	  "deleted_at" TIMESTAMP NULL DEFAULT NULL,
+    PRIMARY KEY ("id")
+);
