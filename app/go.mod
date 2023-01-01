@@ -13,7 +13,7 @@ require (
 	github.com/tanimutomo/sqlfile v1.0.0
 	github.com/testcontainers/testcontainers-go v0.16.0
 	gorm.io/driver/postgres v1.4.5
-	gorm.io/gorm v1.24.2
+	gorm.io/gorm v1.24.3
 )
 
 require (
