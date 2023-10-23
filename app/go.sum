@@ -635,6 +635,8 @@ github.com/steinfletcher/apitest v1.5.14 h1:18t0UtxdKf0OPfeP5omB85m23l1E3/tN3i93
 github.com/steinfletcher/apitest v1.5.14/go.mod h1:mF+KnYaIkuHM0C4JgGzkIIOJAEjo+EA5tTjJ+bHXnQc=
 github.com/steinfletcher/apitest-jsonpath v1.7.1 h1:dj0Z/7DJt2Ts/R52OeVbnMp+gegcf2X7F+/l75HBfsY=
 github.com/steinfletcher/apitest-jsonpath v1.7.1/go.mod h1:FzU2i3ZIyIdF6yBI8a0DZ10gCC6jhiD1yAdU0nCz5Do=
+github.com/steinfletcher/apitest-jsonpath v1.7.2 h1:H7Y3f7zwHQ9crUjA36Z/vhE5x8xidGCriJqsDZ4uHgs=
+github.com/steinfletcher/apitest-jsonpath v1.7.2/go.mod h1:FzU2i3ZIyIdF6yBI8a0DZ10gCC6jhiD1yAdU0nCz5Do=
 github.com/stoewer/go-strcase v1.2.0/go.mod h1:IBiWB2sKIp3wVVQ3Y035++gc+knqhUQag1KpM8ahLw8=
 github.com/stretchr/objx v0.1.0/go.mod h1:HFkY916IF+rwdDfMAkV7OtwuqBVzrE8GR6GFx+wExME=
 github.com/stretchr/objx v0.1.1/go.mod h1:HFkY916IF+rwdDfMAkV7OtwuqBVzrE8GR6GFx+wExME=
