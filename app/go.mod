@@ -1,9 +1,11 @@
 module github.com/steelWinds/animals-rest-go
 
-go 1.19
+go 1.21
+
+toolchain go1.22.1
 
 require (
-	github.com/brianvoe/gofakeit/v6 v6.19.0
+	github.com/brianvoe/gofakeit/v6 v6.28.0
 	github.com/gin-gonic/gin v1.8.1
 	github.com/joho/godotenv v1.4.0
 	github.com/lib/pq v1.10.7
