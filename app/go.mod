@@ -13,7 +13,7 @@ require (
 	github.com/tanimutomo/sqlfile v1.0.0
 	github.com/testcontainers/testcontainers-go v0.16.0
 	gorm.io/driver/postgres v1.4.5
-	gorm.io/gorm v1.24.2
+	gorm.io/gorm v1.25.9
 )
 
 require (
@@ -80,7 +80,7 @@ require (
 	github.com/jackc/pgtype v1.12.0 // indirect
 	github.com/jackc/pgx/v4 v4.17.2 // indirect
 	github.com/jinzhu/inflection v1.0.0 // indirect
-	github.com/jinzhu/now v1.1.4 // indirect
+	github.com/jinzhu/now v1.1.5 // indirect
 	github.com/json-iterator/go v1.1.12 // indirect
 	github.com/kballard/go-shellquote v0.0.0-20180428030007-95032a82bc51 // indirect
 	github.com/klauspost/compress v1.15.9 // indirect
